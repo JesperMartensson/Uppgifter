@@ -1,52 +1,25 @@
 #pragma once
-#include "Player.h"
+#include <string>
+#include <sstream>
+#include "TeamMember.h"
 
-std::string Player::ToStringSpecific() const
+class Player : public TeamMember
 {
-	std::stringstream ss;
-	ss << "Name: " << this->name << "\n";
-	ss << "Position: " << this->position << "\n";
-	ss << "Shirt number: " << this->shirtNum << "\n\n";
+private:
+	std::string name;
+	std::string position;
+	int shirtNum;
+	std::string ToStringSpecific() const;
+public:
+	Player(std::string name = "", std::string position = "", int shirtNum = 0);
+	~Player();
 
-	return ss.str();
-}
+	void ChangeName(const std::string name);
+	void ChangePosition(const std::string position);
+	void ChangeShirtNum(int shirtNum);
 
-Player::Player(std::string name, std::string position, int shirtNum)
-{
-	this->name = name;
-	this->position = position;
-	this->shirtNum = shirtNum;
-}
+	std::string ToString() const;
 
-Player::~Player()
-{
-}
-
-void Player::ChangeName(const std::string name)
-{
-	this->name = name;
-}
-
-void Player::ChangePosition(const std::string position)
-{
-	this->position = position;
-}
-
-void Player::ChangeShirtNum(int shirtNum)
-{
-	this->shirtNum = shirtNum;
-}
-
-Player::Player(const Player & other) : TeamMember(other)
-{
-	this->position = other.position;
-	this->shirtNum = other.shirtNum;
-}
-
-Player & Player::operator=(const Player & other)
-{
-	this->position = other.position;
-	this->shirtNum = other.shirtNum;
-	return *this;
-}
-
+	Player(const Player& other);
+	Player & operator = (const Player& other);
+};
